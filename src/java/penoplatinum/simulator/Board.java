@@ -1,5 +1,6 @@
 package penoplatinum.simulator;
 
+import penoplatinum.BarcodeData;
 /**
  * Board
  * 
@@ -19,6 +20,7 @@ import java.awt.image.*;
 import javax.swing.*; 
 
 import java.net.URL;
+import penoplatinum.BarcodeData;
 
 public class Board extends JPanel {
 
@@ -128,10 +130,65 @@ public class Board extends JPanel {
     }
     
     // lines
+    // lines have a 2cm width = 4px
     // TODO
     
     // barcode
-    // TODO
+    // every bar of the barcode has a 2cm width = 4px
+    int location = tile.getBarcodeLocation();
+    String barcode = BarcodeData.getBarcodesString(tile.getBarcode());
+    switch ( location ){
+        case 1: // North
+            for( int position = 0; position<7; position++ ){
+                String sub = barcode.substring(position, position+1);
+                if( sub.equals("0") ){
+                    g2d.setColor( Color.BLACK );
+                    System.out.println("Kleur is zwart");
+                }
+                else{
+                    g2d.setColor(Color.WHITE);
+                }
+                g2d.fill(new Rectangle(160*(left-1)+4, 160*(top-1)+4*position, 152, 4));
+            }
+            break;
+        case 2: // East
+            for( int position = 0; position<7; position++ ){
+                String sub = barcode.substring(position, position+1);
+                if( sub.equals("0") ){
+                    g2d.setColor( Color.BLACK );
+                }
+                else{
+                    g2d.setColor(Color.WHITE);
+                }
+                g2d.fill(new Rectangle(160*(left)-4*(position+1), 160*(top-1)+4, 152, 4));
+            }
+            break;
+        case 3: // South
+            for( int position = 0; position<7; position++ ){
+                String sub = barcode.substring(position, position+1);
+                if( sub.equals("0") ){
+                    g2d.setColor( Color.BLACK );
+                }
+                else{
+                    g2d.setColor(Color.WHITE);
+                }
+                g2d.fill(new Rectangle(160*(left-1)+4, 160*(top)-4*(position+1), 152, 4));
+            }
+            break;
+        case 4: // West
+            for( int position = 0; position<7; position++ ){
+                String sub = barcode.substring(position, position+1);
+                if( sub.equals("0") ){
+                    g2d.setColor( Color.BLACK );
+                }
+                else{
+                    g2d.setColor(Color.WHITE);
+                }
+                g2d.fill(new Rectangle(160*(left-1)+4*position, 160*(top-1)+4, 152, 4));
+            }
+            break;
+        default:    
+    }
     
     // narrowing
     // TODO
@@ -144,5 +201,5 @@ public class Board extends JPanel {
     affineTransform.rotate( -1 * Math.toRadians(this.direction), 20, 20 ); 
     g2d.drawImage( this.robot, affineTransform, this );
   }
-  
+   
 }
