@@ -143,7 +143,6 @@ public class Board extends JPanel {
                 String sub = barcode.substring(position, position+1);
                 if( sub.equals("0") ){
                     g2d.setColor( Color.BLACK );
-                    System.out.println("Kleur is zwart");
                 }
                 else{
                     g2d.setColor(Color.WHITE);
@@ -179,7 +178,7 @@ public class Board extends JPanel {
             for( int position = 0; position<7; position++ ){
                 String sub = barcode.substring(position, position+1);
                 if( sub.equals("0") ){
-                    g2d.setColor( Color.BLACK );
+                     g2d.setColor( Color.BLACK );
                 }
                 else{
                     g2d.setColor(Color.WHITE);

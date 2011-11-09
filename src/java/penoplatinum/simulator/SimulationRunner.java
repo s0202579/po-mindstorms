@@ -19,7 +19,7 @@ class SimulationRunner {
 
     // construct a course
     Map map = new Map(4);
-    map.add(new Tile(9)) .add(new Tile(5)).add(new Tile(5)).add(new Tile(3))
+    map.add(new Tile(9)) .add(new Tile(5)).add(new Tile(5)).add(new Tile(3))  
        .add(new Tile(12)).add(new Tile(5)).add(new Tile(3)).add(new Tile(10))
        .add(new Tile(9)) .add(new Tile(5)).add(new Tile(6)).add(new Tile(10))
        .add(new Tile(12)).add(new Tile(5)).add(new Tile(5)).add(new Tile(6));
