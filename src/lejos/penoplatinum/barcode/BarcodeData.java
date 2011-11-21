@@ -1,15 +1,14 @@
 package penoplatinum.barcode;
 
 import java.util.ArrayList;
-import penoplatinum.Utils;
-import penoplatinum.sensor.WrappedLightSensor;
+import penoplatinum.sensor.ColorInterpreter;
 
 public class BarcodeData {
-    private final WrappedLightSensor sensor;
+    private final ColorInterpreter interpreter;
     
-    public BarcodeData(WrappedLightSensor sensor)
+    public BarcodeData(ColorInterpreter interpreter)
     {
-        this.sensor = sensor;
+        this.interpreter = interpreter;
         
     }
     
@@ -32,7 +31,7 @@ public class BarcodeData {
             }
             int averageValue = sum / (((i + 1) * list.size() / 7) - ((i * list.size()) / 7));
             val*=2;
-            val+=sensor.isBlackOrWhite(averageValue);
+            val+=interpreter.isBlackOrWhite(averageValue);
         }
         return val;
     }
