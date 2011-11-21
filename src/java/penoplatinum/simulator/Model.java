@@ -33,6 +33,8 @@ public class Model {
     
     private int[] sweepValues = new int[4];
     private boolean sweepChanged = true;
+    
+    private int barcode;
 
     /**
      * Sets the (top-level) processor
@@ -143,5 +145,13 @@ public class Model {
     }
     public int[] getSweepValues(){
       return sweepValues.clone();
+    }
+    
+    public int getBarcode(){
+        return this.barcode;
+    }
+    
+    public void setBarcode(int barcode){
+        this.barcode = barcode;
     }
 }
