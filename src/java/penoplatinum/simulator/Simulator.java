@@ -25,7 +25,7 @@ public class Simulator {
   SimulationView view = new SilentSimulationView();
   private Map map;                // the map that the robot will run on
   
-  private List<SimulatedEntity> robotEntities = new ArrayList<SimulatedEntity>();
+  private List<RobotEntity> robotEntities = new ArrayList<RobotEntity>();
   
   
   // main constructor, no arguments, Simulator is selfcontained
@@ -34,7 +34,7 @@ public class Simulator {
   
   public void addSimulatedEntity(SimulatedEntity r){
     robotEntities.add(r);
-    view.addRobot(r.getRobotView());
+    view.addRobot(r.getViewRobot());
     r.useSimulator(this);
   }
 
@@ -44,8 +44,8 @@ public class Simulator {
    */
   public Simulator displayOn(SimulationView view) {
     this.view = view;
-    for(SimulatedEntity s:robotEntities){
-      view.addRobot(s.getRobotView());
+    for(RobotEntity s:robotEntities){
+      view.addRobot(s.getViewRobot());
     }
     return this;
   }
@@ -139,9 +139,9 @@ public class Simulator {
    */
   public Simulator run() {
     this.view.showMap(this.map);
-    for(SimulatedEntity s:robotEntities){
+    /*for(RobotEntity s:robotEntities){
       s.robotAgent.run();
-    }
+    }*/
     while (true) {
       this.step();
       if(false){
@@ -154,7 +154,7 @@ public class Simulator {
   }
 
   private void step() {
-    for(SimulatedEntity robotEntity : robotEntities){
+    for(RobotEntity robotEntity : robotEntities){
       robotEntity.step();
     }
     refreshView();

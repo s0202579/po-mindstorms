@@ -51,7 +51,7 @@ public class Board extends JPanel {
   private void setupImages() {
     URL resource = this.getClass().getResource("./images/robot40.png");
     ImageIcon ii = new ImageIcon(resource);
-    ViewRobot.robot = ii.getImage();
+    SimulatedViewRobot.robot = ii.getImage();
   }
 
   public void showMap(Map map) {
