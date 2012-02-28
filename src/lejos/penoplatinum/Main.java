@@ -4,65 +4,43 @@ import java.io.PrintStream;
 import lejos.nxt.Button;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
-import lejos.nxt.addon.IRSeeker;
-import penoplatinum.IRSeekerV2.Mode;
+import penoplatinum.sensor.IRSeekerV2.Mode;
 import penoplatinum.bluetooth.PacketTransporter;
 import penoplatinum.bluetooth.RobotBluetoothConnection;
-import penoplatinum.navigators.BehaviourNavigator;
+import penoplatinum.navigators.SectorNavigator;
+import penoplatinum.sensor.IRSeekerV2;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
 
-        RobotBluetoothConnection conn = new RobotBluetoothConnection();
-        conn.initializeConnection();
+        final AngieEventLoop angie = new AngieEventLoop();
         
+        initializeAgent(angie);
         
-
-        Utils.EnableRemoteLogging(conn);
-        IRSeekerV2 seeker = new IRSeekerV2(SensorPort.S3, Mode.AC);
-
-
-        Motor m = Motor.A;
-
-        int startAngle = m.getTachoCount();
-
-
-        int range = 120;
-        int step = 15;
-        int curr = -range;
-
-        int[] angles = new int[(range * 2) / step + 1];
-
-
-        for (int i = 0; i < angles.length; i++) {
-
-            angles[i] = curr;
-            curr += step;
-        }
-        System.out.println(angles[0]);
-        if (startMeasurement(seeker, angles, m, startAngle)) {
-            return;
-        }
-
-        m.rotateTo(startAngle, false);
-
+        Runnable robot = new Runnable() {
+            
+            public void run() {
+                Utils.Log("Started!");
+                angie.useNavigator(new SectorNavigator());
+                angie.runEventLoop();
+            }
+        };
+        
+        robot.run();
     }
 
     private static boolean startMeasurement(IRSeekerV2 seeker, int[] angles, Motor m, int startAngle) {
         while (!Button.ESCAPE.isPressed()) {
-            while (!Button.ENTER.isPressed()) {
-                Utils.Sleep(500);
-                 if (Button.ESCAPE.isPressed()) {
-                    return true;
-                }
-            }
             for (int i = 0; i < angles.length; i++) {
                 int angle = angles[i];
                 m.rotateTo(startAngle + angle, false);
                 int dir = seeker.getDirection();
                 Utils.Log(angle + ", " + dir);
+                for(int j=1; j<6; j++){
+                    Utils.Log(""+j+":"+seeker.getSensorValue(j));
+                }
                 if (Button.ESCAPE.isPressed()) {
                     return true;
                 }
@@ -72,7 +50,6 @@ public class Main {
         return false;
     }
     static byte[] buf = new byte[1];
-    static IRSeeker seeker = new IRSeeker(SensorPort.S3);
 
     private static void runRobotSemester1() {
         final AngieEventLoop angie = new AngieEventLoop();
@@ -83,7 +60,7 @@ public class Main {
 
             public void run() {
                 Utils.Log("Started!");
-                angie.useNavigator(new BehaviourNavigator());
+                angie.useNavigator(new SectorNavigator());
                 angie.runEventLoop();
             }
         };
@@ -96,6 +73,7 @@ public class Main {
         connection.initializeConnection();
 //        Utils.EnableRemoteLogging(connection);
         final PacketTransporter transporter = new PacketTransporter(connection);
+        
         connection.RegisterTransporter(transporter, 123);
         final PrintStream stream = new PrintStream(transporter.getSendStream());
 

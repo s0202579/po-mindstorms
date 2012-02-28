@@ -179,10 +179,11 @@ public class Angie implements RobotAPI {
     }
 
     public void setReferencePoint(ReferencePosition reference) {
-        throw new UnsupportedOperationException("Not supported yet.");
+       //TODO: throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public ExtendedVector getRelativePosition(ReferencePosition reference) {
-        throw new UnsupportedOperationException("Not supported yet.");
+       //TODO:  throw new UnsupportedOperationException("Not supported yet.");
+       return null;
     }
 }
