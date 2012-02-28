@@ -112,13 +112,13 @@ public class NavigatorRobot implements Robot {
 
 
     // Update the robot's estimated position in the model
-    ExtendedVector delta = api.getRelativePosition(stepReference);
-    api.setReferencePoint(stepReference);
-    model.setPositionX(model.getPositionX() + delta.getX());
-    model.setPositionY(model.getPositionY() + delta.getY());
-    model.setDirection(model.getDirection() + delta.getAngle());
-
-    sendDelta.add(delta);
+//    ExtendedVector delta = api.getRelativePosition(stepReference);
+//    api.setReferencePoint(stepReference);
+//    model.setPositionX(model.getPositionX() + delta.getX());
+//    model.setPositionY(model.getPositionY() + delta.getY());
+//    model.setDirection(model.getDirection() + delta.getAngle());
+//
+//    sendDelta.add(delta);
 
 
     // ask the navigator what to do next

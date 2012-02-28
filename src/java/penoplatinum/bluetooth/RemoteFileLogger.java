@@ -32,15 +32,6 @@ public class RemoteFileLogger {
 
     public RemoteFileLogger(IConnection conn, String baseFilename, final File directory) {
 
-
-        
-
-
-
-
-
-
-
         int testNum = 0;
 
         pt = new PacketTransporter(conn);
@@ -48,12 +39,6 @@ public class RemoteFileLogger {
         conn.RegisterTransporter(pt, penoplatinum.Utils.PACKETID_STARTLOG);
         this.directory = directory;
         directory.mkdirs();
-
-
-
-
-
-
     }
 
     public void startLogging() {
